@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+using ull = unsigned long long;
+using pii = pair<int, int>;
+using vvi = vector<vector<int>>;
+using vi = vector<int>;
+
+#define umap unordered_map
+
+void solve() {
+
+}
+
+int main() {
+  cin.sync_with_stdio(false);
+  cin.tie(nullptr);
+  int t;
+  cin >> t;
+  while (t--) {
+    ull l, r;
+    cin >> l >> r;
+    int k = 31 - __builtin_clz(l ^ r);
+    int a = l | ((1 << k) - 1), b = a + 1, c = (b == r) ? l : r;
+    cout << a << " " << b << " " << c << endl;
+  }
+}
+
+
