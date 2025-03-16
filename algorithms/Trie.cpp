@@ -4,40 +4,37 @@
 
 using namespace std;
 
-// Assuming only lowercase characters
+// Assuming only lowercase alphabetical characters
 struct TrieNode {
   TrieNode *children[26];
-  char c;
-  TrieNode(char x) {
-    this->c = x;
+  TrieNode() {
     for (int i = 0; i < 26; i++) children[i] = nullptr;
   }
-  TrieNode(): TrieNode('\0') {
-    // 
-  }
+  bool isEnd = false;
 }; 
 
 void insert(TrieNode* root, const string& s) {
-  TrieNode* current = root;
+  TrieNode* curr = root;
   for (char c : s) {
     int idx = c - 'a';
-    if (current->children[idx] == nullptr) {
-      current->children[idx] = new TrieNode(c);
+    if (curr->children[idx] == nullptr) {
+      curr->children[idx] = new TrieNode();
     } 
-    current = current->children[idx]; 
+    curr = curr->children[idx]; 
   }
+  curr->isEnd = true;
 }
 
 bool search(TrieNode* root, const string& s) {
-  TrieNode* current = root;
+  TrieNode* curr = root;
   for (char c : s) {
     int idx = c - 'a';
-    if (current->children[idx] == nullptr) {
+    if (curr->children[idx] == nullptr) {
       return false;
     }
-    current = current->children[idx];
+    curr = curr->children[idx];
   }
-  return true;
+  return curr->isEnd;
 }
 
 void printTrie(TrieNode* root) {
@@ -45,7 +42,9 @@ void printTrie(TrieNode* root) {
 }
 
 int main() {
-  TrieNode* root = new TrieNode();
-  insert(root, "helloworld");
-  cout << "'w' found in trie: " << (search(root, "w") ? "Yes" : "No") << endl;
+  TrieNode root;
+  insert(&root, "helloworld");
+  insert(&root, "hello");
+  cout << "'hello' found in trie: " << (search(&root, "hello") ? "Yes" : "No") << endl; // Yes
+  cout << "'world' found in trie: " << (search(&root, "world") ? "Yes" : "No") << endl; // No
 }
