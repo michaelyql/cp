@@ -26,14 +26,32 @@ int main() {
 	cin >> n >> k;
 	vi a(n);
   rep(i, 0, n) cin >> a[i];
-  set<int> mex_candidates;
+  vector<int> v(n + 1);
+  iota(all(v), 0); // 
+  set<int> mex_candidates(all(v));
 
+  unordered_map<int, int> freq;
   // first window
   for (int i = 0; i < k; i++) {
-    
+    freq[a[i]]++;
+    if (mex_candidates.find(a[i]) != mex_candidates.end()) {
+      mex_candidates.erase(a[i]);
+    }
   }
+  cout << *(mex_candidates.begin()) << " ";
 
   for (int i = 1; i < n - k + 1; i++) {
-    
+    if (a[i - 1] != a[i + k - 1]) {
+      freq[a[i + k - 1]]++;
+      if (mex_candidates.find(a[i + k - 1]) != mex_candidates.end()) {
+        mex_candidates.erase(a[i + k - 1]);
+      }
+
+      if (freq[a[i - 1]] == 1) {
+        mex_candidates.insert(a[i - 1]);
+      }
+      freq[a[i - 1]]--;
+    } 
+    cout << *(mex_candidates.begin()) << " ";
   }
 }
