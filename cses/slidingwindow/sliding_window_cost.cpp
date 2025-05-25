@@ -39,6 +39,8 @@ also:
 
 the mean minimizes the sum of squared deviations.
 
+solution from https://usaco.guide/problems/cses-1077-sliding-cost/solution
+
 */
 
 void ins(int x, int n, int k, multiset<int>& up, multiset<int>& low, ll& up_sum, ll& low_sum) {
