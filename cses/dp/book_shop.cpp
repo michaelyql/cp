@@ -27,17 +27,12 @@ int main() {
     vi h(n), s(n);
     rep(i, 0, n) cin >> h[i];
     rep(i, 0, n) cin >> s[i];
-    vi dp(x + 1, -1);
-    dp[0] = 0;
-    rep(i, 0, n) { 
-        rep(j, 1, x + 1) { // j is current price
-            if (j - h[i] >= 0 && dp[j - h[i]] != -1) {
-                 dp[j] = max(dp[j], dp[j - h[i]] + s[i]);
-                 db(j)
-                 db(dp[j])
-            }
+    vvi dp(n+1, vi(x + 1));
+    rep(i,1,n+1){
+        rep(j,0,x+1){
+            dp[i][j]=dp[i-1][j];
+            if(j >= h[i-1]) dp[i][j]=max(dp[i][j], dp[i-1][j - h[i-1]] + s[i-1]);
         }
     }
-    rep(i, 1, x + 1) {db(dp[i]) db(i)}
-    cout << dp[x] << endl;
+    cout << dp[n][x] << endl;
 }
