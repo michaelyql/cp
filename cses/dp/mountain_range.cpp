@@ -30,7 +30,7 @@ int f(int i, vi& dp, vi& l, vi& r) {
 
 int main() {
     ios::sync_with_stdio(false);
-	cin.tie(nullptr); 
+    cin.tie(nullptr); 
     int n;
     cin >> n;
     vi a(n);
