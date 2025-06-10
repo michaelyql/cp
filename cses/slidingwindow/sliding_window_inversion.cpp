@@ -1,7 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define rep(i, a, b) for (int (i) = (a); (i) < (b); (i)++) 
+#define LSOne(S) ((S) & -(S)) 
+#define all(x) (x).begin(), (x).end()
+#define debug
+ 
+#ifdef debug
+#define db(x) cout << #x " = " << x << endl;
+#define bp(x) cout << #x << endl;
+#else 
+#define db(x) 
+#define bp(x)
+#endif
+
 using ll = long long;
+using pii = pair<int, int>;
+using vi = vector<int>;
+using vvi = vector<vector<int>>;
 
 struct node {
     int val;
@@ -204,11 +220,26 @@ void bfs(node* u) {
 }
 
 int main() {
-    node* root = nullptr;
-    int a[10] = {1, 2, 3, 10, 4, 5, 8, 6, 9, 7};
-    for (auto x : a) {
-        root = insert(x, &root);
-    }
-    bfs(root);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr); 
+    int n, k;
+    cin >> n >> k;
+    vi a(n);
+    rep(i, 0, n) cin >> a[i];
     
+    node* root = nullptr;
+    ll inv = 0;
+    for (int i = 0; i < k; i++) {
+        inv += query_bigger(a[i], root);
+        root = insert(a[i], &root);
+    }
+    cout << inv << " ";
+    for (int i = 1; i < n - k + 1; i++) {
+        inv -= query_smaller(a[i - 1], root);
+        root = remove(a[i - 1], &root);
+        inv += query_bigger(a[i + k - 1], root);
+        root = insert(a[i + k - 1], &root);
+        cout << inv << " ";
+    }
+    cout << endl;
 }
