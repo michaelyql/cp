@@ -1,2 +1,8 @@
 images/
 **/.DS_Store
+**/in
+**/in[0-9]*
+**/out
+**/out[0-9]*
+build/
+tests/

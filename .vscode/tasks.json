@@ -3,14 +3,21 @@
         {
             "type": "cppbuild",
             "label": "C/C++: clang build active file",
-            "command": "/usr/bin/clang",
+            "command": "clang++",
             "args": [
-                "-fcolor-diagnostics",
-                "-fansi-escape-codes",
-                "-g",
                 "${file}",
+                "-Wall", 
+                "-std=c++17",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/build/${fileBasenameNoExtension}",
+                "-I/usr/local/include",
+                "-I/usr/local/include/testlib-0.9.41/",
+                "&&",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}",
+                "<", 
+                "${fileDirname}/in",
+                ">", 
+                "${fileDirname}/out"
             ],
             "options": {
                 "cwd": "${fileDirname}"
