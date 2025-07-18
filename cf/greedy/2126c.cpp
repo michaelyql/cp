@@ -26,25 +26,26 @@ void solve() {
     int n, k;
     cin >> n >> k;
     k--;
+    set<int> s;
     vi h(n);
-    rep(i, 0, n) cin >> h[i];
+    rep(i, 0, n) {
+        cin >> h[i];
+        s.insert(h[i]);
+    }
     int curH = h[k];
-    sort(all(h));
-    int maxH = h[n - 1];
-    int i = 0;
+    int maxH = *s.rbegin();
     int t = 0;
-    while (i < n && h[i] != curH) i++;
-    for (; i < n && h[i] != maxH; i++) {
-        int j = i + 1;
-        while (j < n && h[j] == h[i]) j++;
-        int dt = h[j] - curH;
-        
+    auto it = s.begin();
+    while (it != s.end() && *it <= curH) it++;
+    while (it != s.end()) {
+        int dt = *it - curH;
         if (t + dt > curH) {
             cout << "NO" << endl;
             return;
         }
-        t = t + dt;
-        curH = h[j];
+        t += dt;
+        curH = *it;
+        it++;
     }
     cout << "YES" << endl;
 }
