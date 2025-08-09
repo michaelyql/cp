@@ -9,6 +9,7 @@ using vi = vector<int>;
 
 
 void solve() {
+	/*
 	int n;
 	cin >> n;
 	vector<ll> a(n);
@@ -56,6 +57,38 @@ void solve() {
 		}
 	}
 	cout << amax - amin << endl;
+
+	*/
+
+	int n;
+	cin >> n;
+    vector<ll> a(n);
+    for (int i = 0; i < n; ++i) cin >> a[i];
+
+    // prefix sums p[k] = sum of a[0..k-1], p[0] = 0
+    vector<ll> p(n+1, 0);
+    for (int i = 0; i < n; ++i) p[i+1] = p[i] + a[i];
+    ll S = p[n];
+
+    // compute m* = min_{1<=k<=n} floor(p_k / k)
+    ll mstar = LLONG_MAX;
+    for (int k = 1; k <= n; ++k) {
+        ll val = p[k] / k;            // floor division for nonnegative values
+        mstar = min(mstar, val);
+    }
+
+    // compute M* = max_{1<=t<=n} ceil(s_t / t)
+    // where s_t = sum of last t elements = S - p[n-t]
+    ll Mstar = LLONG_MIN;
+    for (int t = 1; t <= n; ++t) {
+        ll st = S - p[n - t];
+        // ceil division for positive integers: (st + t - 1) / t
+        ll val = (st + t - 1) / t;
+        Mstar = max(Mstar, val);
+    }
+
+    // result is M* - m*
+    cout << (Mstar - mstar) << '\n';
 } 
 
 int main() {
