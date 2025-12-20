@@ -15,9 +15,9 @@
                 "&&",
                 "${workspaceFolder}/build/${fileBasenameNoExtension}",
                 "<", 
-                "${workspaceFolder}/tests/in",
+                "${workspaceFolder}/build/in",
                 ">", 
-                "${workspaceFolder}/tests/out"
+                "${workspaceFolder}/build/out"
             ],
             "options": {
                 "cwd": "${fileDirname}"
