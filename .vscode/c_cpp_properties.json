@@ -3,7 +3,6 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**",
                 "/usr/local/include/**"
             ],
             "compilerArgs": [
